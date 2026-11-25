@@ -2,7 +2,8 @@ Package: fpcubeR
 Title: Read the Florida Pasture Cube
 Version: 1.3.0
 Authors@R:
-    person("Hugo", "Rodrigues", email = "rodrigues.h@ufl.edu", role = c("aut", "cre", "cph"))
+    person("Hugo", "Rodrigues", email = "rodrigues.h@ufl.edu", role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0002-8070-8126"))
 Description: Downloads and reads the Florida Pasture Cube, a field-level data set of
     62,847 persistent pasture fields in Florida with 5-day composites of
     Harmonized Landsat and Sentinel-2 reflectance and indices, Sentinel-1

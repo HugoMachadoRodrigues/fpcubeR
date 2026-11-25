@@ -15,7 +15,9 @@ theme_set(theme_minimal(base_size = 10) + theme(panel.grid.minor = element_blank
 # fpcubeR
 
 [![Data DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24542431.svg)](https://doi.org/10.5281/zenodo.24542431)
+[![Package DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24543602.svg)](https://doi.org/10.5281/zenodo.24543602)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
+[![R-CMD-check](https://github.com/HugoMachadoRodrigues/fpcubeR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/HugoMachadoRodrigues/fpcubeR/actions/workflows/R-CMD-check.yaml)
 
 `fpcubeR` downloads and reads the **Florida Pasture Cube** in R.
 
@@ -38,7 +40,7 @@ anomalies against each field's own climatology, and plot fields and series.
 |---|---|
 | Data | Zenodo, [10.5281/zenodo.24542431](https://doi.org/10.5281/zenodo.24542431), CC BY 4.0 |
 | Processing code (Python) | [github.com/HugoMachadoRodrigues/fpcube](https://github.com/HugoMachadoRodrigues/fpcube), [10.5281/zenodo.24542304](https://doi.org/10.5281/zenodo.24542304) |
-| This package | MIT licence |
+| This package | MIT licence, [10.5281/zenodo.24543602](https://doi.org/10.5281/zenodo.24543602) |
 
 ## Contents
 
@@ -546,8 +548,13 @@ If you use the data, cite the data set:
 > Rodrigues, H. (2026). Florida Pasture Cube v1.3: field-level time series of persistent pasture fields in
 > Florida, 2016–2026 [Data set]. Zenodo. https://doi.org/10.5281/zenodo.24542431
 
-If you use the processing code, cite fpcube (https://doi.org/10.5281/zenodo.24542304). A citation for this
-package is available with `citation("fpcubeR")`.
+If you use this package, cite it as:
+
+> Rodrigues, H. (2026). fpcubeR: read the Florida Pasture Cube in R (version 1.3.0) [Software]. Zenodo.
+> https://doi.org/10.5281/zenodo.24543603
+
+If you use the processing code, cite fpcube (https://doi.org/10.5281/zenodo.24542304). `citation("fpcubeR")` gives
+both references.
 
 The data contain modified Copernicus Sentinel data (2016–2026). `DATASHEET.md` lists the attribution of every
 source.

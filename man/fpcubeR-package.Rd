@@ -33,11 +33,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Hugo Rodrigues \email{rodrigues.h@ufl.edu} [copyright holder]
+\strong{Maintainer}: Hugo Rodrigues \email{rodrigues.h@ufl.edu} (\href{https://orcid.org/0000-0002-8070-8126}{ORCID}) [copyright holder]
 
 Authors:
 \itemize{
-  \item Hugo Rodrigues \email{rodrigues.h@ufl.edu} [copyright holder]
+  \item Hugo Rodrigues \email{rodrigues.h@ufl.edu} (\href{https://orcid.org/0000-0002-8070-8126}{ORCID}) [copyright holder]
 }
 
 }

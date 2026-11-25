@@ -15,6 +15,8 @@ bibentry(
   author = person("Hugo", "Rodrigues"),
   year = "2026",
   note = "R package version 1.3.0",
-  url = "https://github.com/HugoMachadoRodrigues/fpcubeR",
-  textVersion = "Rodrigues, H. (2026). fpcubeR: Read the Florida Pasture Cube. R package version 1.3.0. https://github.com/HugoMachadoRodrigues/fpcubeR"
+  publisher = "Zenodo",
+  doi = "10.5281/zenodo.24543603",
+  url = "https://doi.org/10.5281/zenodo.24543603",
+  textVersion = "Rodrigues, H. (2026). fpcubeR: Read the Florida Pasture Cube. R package version 1.3.0. Zenodo. https://doi.org/10.5281/zenodo.24543603"
 )

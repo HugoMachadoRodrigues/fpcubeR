@@ -3,11 +3,14 @@ message: "If you use this package, please cite it as below, and cite the Florida
 title: "fpcubeR: read the Florida Pasture Cube in R"
 type: software
 version: 1.3.0
+doi: 10.5281/zenodo.24543602
+date-released: 2026-11-25
 license: MIT
 repository-code: "https://github.com/HugoMachadoRodrigues/fpcubeR"
 authors:
   - family-names: Rodrigues
     given-names: Hugo
+    orcid: "https://orcid.org/0000-0002-8070-8126"
     affiliation: "University of Florida, Institute of Food and Agricultural Sciences, Range Cattle Research and Education Center"
 references:
   - type: dataset
