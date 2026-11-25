@@ -1,0 +1,20 @@
+{
+  "upload_type": "software",
+  "title": "fpcubeR: read the Florida Pasture Cube in R",
+  "creators": [
+    {
+      "name": "Rodrigues, Hugo",
+      "affiliation": "University of Florida, Institute of Food and Agricultural Sciences, Range Cattle Research and Education Center, Ona, Florida, USA"
+    }
+  ],
+  "description": "<p>R package that downloads and reads the Florida Pasture Cube (DOI 10.5281/zenodo.24542431): pasture fields as sf objects, 5-day composites of HLS, Sentinel-1 and PRISM with gap-filled optical values removed by default, per-acquisition observation tables and drought, pasture condition and hurricane labels, with helpers for county drought classes, field anomalies and plots.</p>",
+  "license": "MIT",
+  "language": "eng",
+  "access_right": "open",
+  "keywords": ["pasture", "Florida", "remote sensing", "R package", "data cube", "Sentinel-1", "Harmonized Landsat Sentinel-2", "drought"],
+  "related_identifiers": [
+    {"identifier": "10.5281/zenodo.24542431", "relation": "isSupplementTo", "resource_type": "dataset", "scheme": "doi"},
+    {"identifier": "10.5281/zenodo.24542304", "relation": "isSupplementTo", "resource_type": "software", "scheme": "doi"}
+  ],
+  "version": "1.3.0"
+}

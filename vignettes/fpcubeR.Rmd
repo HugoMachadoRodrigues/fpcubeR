@@ -1,0 +1,116 @@
+---
+title: "Getting started with fpcubeR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with fpcubeR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 7, fig.height = 4)
+has_gg <- requireNamespace("ggplot2", quietly = TRUE)
+```
+
+This vignette walks through a typical analysis of the Florida Pasture Cube:
+
+1. choose fields;
+2. read their 5-day series;
+3. look at a field;
+4. relate its greenness to drought.
+
+It uses the small real extract shipped with the package, which holds nine fields from Hardee, DeSoto and
+Highlands counties. With the full data downloaded by `fpc_download()`, drop the `dir = d` arguments.
+
+```{r}
+library(fpcubeR)
+d <- fpc_example_dir()
+```
+
+## 1. Choose fields
+
+`fpc_fields()` returns the fields as an `sf` object in EPSG:5070. The tiers differ in how sure we are that a
+field is grazed:
+
+- **A:** fields on parcels coded as grazing land.
+- **B:** fields on other parcels that were mapped as pasture in nearly every year.
+- **C:** open pasture in the official land-use maps that the Cropland Data Layer maps as woody or wetland.
+
+```{r}
+f <- fpc_fields(dir = d)
+table(f$tier)
+f[, c("field_id", "tier", "county", "area_ha", "hand_mean_m")]
+```
+
+Filters can be combined, and `geometry = FALSE` returns a plain data frame:
+
+```{r}
+fpc_fields(tier = c("A", "B"), county = "Hardee", geometry = FALSE, dir = d)[, c("field_id", "tier")]
+```
+
+## 2. Read the series
+
+`fpc_composites()` reads one row per field and 5-day period. Gap-filled optical values are set to `NA`
+unless you ask for them with `observed_only = FALSE`. They are built from the next observation, so they must
+not enter forecasts or other causal analyses.
+
+```{r}
+x <- fpc_composites(f, vars = c("ndvi", "vv_db", "ppt_sum"), years = 2022, dir = d)
+head(x)
+mean(!is.na(x$ndvi))   # share of field-periods with an observed NDVI
+```
+
+`fpc_variables()` documents every variable:
+
+```{r}
+v <- fpc_variables(d)
+v[v$group %in% c("radar", "weather"), c("name", "units", "description")]
+```
+
+## 3. Look at a field
+
+```{r, eval = has_gg, fig.height = 4.5}
+fpc_plot_field("FPC060780", vars = c("ndvi", "vv_db", "ppt_sum"), years = 2022:2023, dir = d)
+```
+
+The open circles are gap-filled values, drawn only to show the seasonal course. The per-acquisition records
+behind the composites are in `fpc_observations()`:
+
+```{r}
+o <- fpc_observations("optical", fields = "FPC060780", years = 2022, dir = d)
+nrow(o)
+table(o$sensor)
+```
+
+## 4. Greenness and drought
+
+`fpc_anomaly()` compares each value with the field's own climatology for the same time of year, and
+`fpc_add_drought()` adds the county drought class valid on each date.
+
+```{r}
+x3 <- fpc_composites(f, vars = "ndvi", dir = d)
+a <- fpc_add_drought(fpc_anomaly(x3, "ndvi", ref_years = 2021:2022, min_years = 2), dir = d)
+aggregate(anomaly ~ usdm_class, a, function(z) round(median(z), 3))
+```
+
+```{r, eval = has_gg, fig.height = 3.5}
+library(ggplot2)
+a$drought <- factor(a$usdm_class, 0:5, c("none", "D0", "D1", "D2", "D3", "D4"))
+ggplot(a[!is.na(a$anomaly), ], aes(drought, anomaly)) +
+  geom_hline(yintercept = 0, colour = "grey60") +
+  geom_boxplot(outlier.size = 0.5) +
+  labs(x = "County drought class", y = "NDVI anomaly", title = "Nine example fields, 2021-2023") +
+  theme_minimal()
+```
+
+## Working with the full data set
+
+```{r, eval = FALSE}
+fpc_download(c("fields", "composites", "labels"))   # about 2.4 GB
+fpc_download("optical")                              # per-acquisition HLS records, 4 GB
+fa <- fpc_fields(tier = "A")
+x <- fpc_composites(fa, vars = c("ndvi", "ppt_sum"), from = "2022-01-01", to = "2023-12-31")
+```
+
+Reading all fields for one year gives about 4.6 million rows. Select the fields and variables you need, and
+the readers then load only those parts of the files.
