@@ -1,0 +1,41 @@
+url: https://hugomachadorodrigues.github.io/fpcubeR/
+
+template:
+  bootstrap: 5
+
+home:
+  title: "fpcubeR: read the Florida Pasture Cube in R"
+
+navbar:
+  structure:
+    left: [intro, reference, news]
+    right: [search, github]
+
+reference:
+- title: Get the data
+  desc: Download the data set from Zenodo, set the data folder and check the files.
+  contents:
+  - fpc_download
+  - fpc_files
+  - fpc_record
+  - fpc_verify
+  - fpc_dir
+  - fpc_example_dir
+- title: Read
+  desc: Fields, 5-day composites, per-acquisition observations and labels.
+  contents:
+  - fpc_fields
+  - fpc_composites
+  - fpc_variables
+  - fpc_observations
+  - fpc_labels
+- title: Analyse
+  desc: County drought class, field climatology and anomalies, summaries.
+  contents:
+  - fpc_add_drought
+  - fpc_climatology
+  - fpc_summarise
+- title: Plot
+  contents:
+  - fpc_plot_field
+  - fpc_map_fields

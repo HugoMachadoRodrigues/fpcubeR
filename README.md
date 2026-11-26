@@ -37,8 +37,9 @@ series.
 |  |  |
 |----|----|
 | Data | Zenodo, [10.5281/zenodo.24542431](https://doi.org/10.5281/zenodo.24542431), CC BY 4.0 |
-| Processing code (Python) | [github.com/HugoMachadoRodrigues/fpcube](https://github.com/HugoMachadoRodrigues/fpcube), [10.5281/zenodo.24542304](https://doi.org/10.5281/zenodo.24542304) |
-| This package | MIT licence, [10.5281/zenodo.24543602](https://doi.org/10.5281/zenodo.24543602) |
+| Processing code (Python) | [github.com/HugoMachadoRodrigues/fpcube](https://github.com/HugoMachadoRodrigues/fpcube), [10.5281/zenodo.24542303](https://doi.org/10.5281/zenodo.24542303) |
+| This package | MIT licence, [10.5281/zenodo.24543602](https://doi.org/10.5281/zenodo.24543602); documentation at [hugomachadorodrigues.github.io/fpcubeR](https://hugomachadorodrigues.github.io/fpcubeR/) |
+| Python | the module `fpcube.read` of the processing code (from version 1.3.1) has the same readers |
 
 ## Contents
 
@@ -742,7 +743,7 @@ If you use this package, cite it as:
 > <https://doi.org/10.5281/zenodo.24543603>
 
 If you use the processing code, cite fpcube
-(<https://doi.org/10.5281/zenodo.24542304>). `citation("fpcubeR")` gives
+(<https://doi.org/10.5281/zenodo.24542303>). `citation("fpcubeR")` gives
 both references.
 
 The data contain modified Copernicus Sentinel data (2016–2026).

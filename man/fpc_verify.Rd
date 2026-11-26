@@ -16,3 +16,10 @@ A data frame with the file, whether it is present and whether its checksum match
 Compares the SHA-256 checksum of every file of the data folder that is listed in \code{SHA256SUMS}
 (download it with \code{fpc_download("docs")}). Needs the \code{digest} package.
 }
+\examples{
+\dontrun{
+fpc_download(c("docs", "fields", "composites"))
+v <- fpc_verify()
+v[v$present & !v$ok, ]   # files whose checksum does not match
+}
+}

@@ -3,9 +3,17 @@
 \name{fpc_record}
 \alias{fpc_record}
 \title{Zenodo record of the Florida Pasture Cube data}
+\format{
+A character string.
+}
 \usage{
 fpc_record
 }
 \description{
 The record identifier of the version 1.3 data set on Zenodo (DOI 10.5281/zenodo.24542431).
+\code{\link[=fpc_files]{fpc_files()}} and \code{\link[=fpc_download]{fpc_download()}} use it by default.
+}
+\examples{
+fpc_record
+paste0("https://zenodo.org/records/", fpc_record)
 }

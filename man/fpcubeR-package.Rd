@@ -26,6 +26,7 @@ Data: CC BY 4.0, DOI 10.5281/zenodo.24542431. Cite the data set when you use it.
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://hugomachadorodrigues.github.io/fpcubeR/}
   \item \url{https://github.com/HugoMachadoRodrigues/fpcubeR}
   \item \url{https://github.com/HugoMachadoRodrigues/fpcube}
   \item Report bugs at \url{https://github.com/HugoMachadoRodrigues/fpcubeR/issues}

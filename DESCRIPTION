@@ -13,7 +13,8 @@ Description: Downloads and reads the Florida Pasture Cube, a field-level data se
     removed by default, join the county drought class, compute anomalies
     against each field's own climatology and plot field time series.
 License: MIT + file LICENSE
-URL: https://github.com/HugoMachadoRodrigues/fpcubeR,
+URL: https://hugomachadorodrigues.github.io/fpcubeR/,
+    https://github.com/HugoMachadoRodrigues/fpcubeR,
     https://github.com/HugoMachadoRodrigues/fpcube
 BugReports: https://github.com/HugoMachadoRodrigues/fpcubeR/issues
 Depends:
@@ -34,6 +35,7 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
+Config/Needs/website: pkgdown
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US

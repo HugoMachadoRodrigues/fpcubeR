@@ -1,7 +1,13 @@
 #' Zenodo record of the Florida Pasture Cube data
 #'
 #' The record identifier of the version 1.3 data set on Zenodo (DOI 10.5281/zenodo.24542431).
+#' [fpc_files()] and [fpc_download()] use it by default.
+#'
+#' @format A character string.
 #' @export
+#' @examples
+#' fpc_record
+#' paste0("https://zenodo.org/records/", fpc_record)
 fpc_record <- "24542431"
 
 #' List the files of the Florida Pasture Cube on Zenodo
@@ -139,6 +145,12 @@ marker_path <- function(dir, file) file.path(dir, ".fpcubeR", paste0(file, ".md5
 #' @inheritParams fpc_download
 #' @return A data frame with the file, whether it is present and whether its checksum matches.
 #' @export
+#' @examples
+#' \dontrun{
+#' fpc_download(c("docs", "fields", "composites"))
+#' v <- fpc_verify()
+#' v[v$present & !v$ok, ]   # files whose checksum does not match
+#' }
 fpc_verify <- function(dir = NULL) {
   if (!requireNamespace("digest", quietly = TRUE)) stop("fpc_verify() needs the digest package.", call. = FALSE)
   dir <- resolve_dir(dir)
