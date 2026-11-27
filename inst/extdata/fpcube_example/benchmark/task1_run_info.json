@@ -1,0 +1,18 @@
+{
+  "task": "task1",
+  "code": {
+    "commit": "5e886d7",
+    "code_modified_since_commit": true,
+    "code_sha256_16": "1a5eb14ada85067b"
+  },
+  "started": "2026-11-25 12:41:21",
+  "n_samples": 12010930,
+  "n_dropped_crossing_split": 425778,
+  "n_train": 6755742,
+  "n_val": 2410321,
+  "n_test": 2284321,
+  "n_test_spatial": 560546,
+  "n_train_used": 2000000,
+  "n_val_used": 500000,
+  "finished": "2026-11-25 13:02:39"
+}

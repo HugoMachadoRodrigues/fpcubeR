@@ -43,7 +43,9 @@ release. Files that are already there with the right checksum are not downloaded
    \code{"lineage"} \tab \code{lineage.parquet}: field identifiers across versions \tab 1 MB \cr
    \code{"optical"} \tab \verb{optical_observations/}: one row per field and HLS granule \tab 4 GB \cr
    \code{"radar"} \tab \verb{radar_observations/}: one row per field and Sentinel-1 acquisition \tab 1 GB \cr
-   \code{"validation"}, \code{"benchmark"}, \code{"stac"} \tab validation tables, benchmark samples and results, STAC catalog \tab small \cr
+   \code{"validation"} \tab \verb{validation/}: the tables behind the validation of the paper (see \code{\link[=fpc_validation]{fpc_validation()}}) \tab 8 MB \cr
+   \code{"benchmark"} \tab \verb{benchmark/}: samples, results and predictions of the benchmark (see \code{\link[=fpc_benchmark]{fpc_benchmark()}}) \tab 27 MB \cr
+   \code{"stac"} \tab \verb{stac/}: SpatioTemporal Asset Catalog of the release \tab < 1 MB \cr
    \code{"cube"} \tab \code{cube.zarr.zip}: the same composites as a Zarr store (for Python) \tab 2.5 GB \cr
    \code{"docs"} \tab \code{DATASHEET.md} and checksums \tab small \cr
 }

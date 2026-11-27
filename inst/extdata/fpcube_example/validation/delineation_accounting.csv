@@ -1,0 +1,14 @@
+step,area_ha,n
+"Persistent pasture (CDL 176 or 37 in >= 6 of 10 years, 2016-2025)",1615319.28,
+"Removed: woody (CDL 141, 142, 143, 152, 190) in >= 2 of 2012-2016",-157550.31,
+Removed: outside any parcel of the two parcel layers,-80345.6100000001,
+Removed: parts smaller than 2 ha after the split into connected parts,-214317.99,
+Fields delineated,1163105.3699999999,
+Removed: fields with land-use change (pasture in < 50 % of the field in 2023-2025),-31195.979999999996,-3889.0
+Removed: tier B fields with pasture in < 9.5 of 10 years (field mean),-254295.71999999997,-25506.0
+Fields (tiers A and B),877613.67,52049.0
+"Official FLUCCS pasture mapped by the CDL as woody or wetland (or woody-screened), open in WorldCover (>= 67 %), outside the fields",182057.13,
+Removed: outside any parcel,-8073.0,
+Removed: parts smaller than 2 ha after the split into connected parts,-72420.75000000001,
+Added: tier C fields,101563.37999999999,10798.0
+Fields,979177.05,62847.0

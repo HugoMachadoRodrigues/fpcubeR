@@ -22,13 +22,19 @@ reference:
   - fpc_dir
   - fpc_example_dir
 - title: Read
-  desc: Fields, 5-day composites, per-acquisition observations and labels.
+  desc: Fields, 5-day composites, per-acquisition observations, labels and field identifiers across versions.
   contents:
   - fpc_fields
   - fpc_composites
   - fpc_variables
   - fpc_observations
   - fpc_labels
+  - fpc_lineage
+- title: Validation and benchmark
+  desc: The tables behind the validation and the benchmark of the paper.
+  contents:
+  - fpc_validation
+  - fpc_benchmark
 - title: Analyse
   desc: County drought class, field climatology and anomalies, summaries.
   contents:
