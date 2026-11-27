@@ -36,7 +36,7 @@ series.
 | Data | Zenodo, [10.5281/zenodo.24542431](https://doi.org/10.5281/zenodo.24542431), CC BY 4.0 |
 | Processing code (Python) | [github.com/HugoMachadoRodrigues/fpcube](https://github.com/HugoMachadoRodrigues/fpcube), [10.5281/zenodo.24542303](https://doi.org/10.5281/zenodo.24542303) |
 | This package | MIT licence, [10.5281/zenodo.24543602](https://doi.org/10.5281/zenodo.24543602); documentation at [hugomachadorodrigues.github.io/fpcubeR](https://hugomachadorodrigues.github.io/fpcubeR/) |
-| Python | the module `fpcube.read` of the processing code (from version 1.3.1) has the same readers |
+| Python | the module `fpcube.read` of the processing code reads the fields, composites, observations and labels (from version 1.3.1) and the lineage, validation and benchmark tables (development version) |
 
 ## Contents
 
@@ -46,6 +46,8 @@ series.
 - [Functions](#functions)
   - [Getting the data](#getting-the-data)
   - [Reading](#reading)
+  - [Lineage, validation and
+    benchmark](#lineage-validation-and-benchmark)
   - [Analysis helpers](#analysis-helpers)
   - [Plots](#plots)
 - [Worked examples](#worked-examples)
@@ -140,7 +142,10 @@ sets these values to `NA` by default.
 | `"labels"` | `labels.zip` → `labels/*.parquet` | \< 1 MB |
 | `"optical"` | `optical_observations.zip` → one Parquet file per year | 4.0 GB |
 | `"radar"` | `radar_observations.zip` → one Parquet file per year | 1.0 GB |
-| `"lineage"`, `"validation"`, `"benchmark"`, `"stac"`, `"docs"` | identifiers across versions, validation tables, benchmark, STAC catalog, datasheet and checksums | small |
+| `"lineage"` | `lineage.parquet`, field identifiers across versions | 1 MB |
+| `"validation"` | `validation.zip` → the tables behind the validation of the paper | 8 MB |
+| `"benchmark"` | `benchmark.zip` → samples, results and predictions of the benchmark | 27 MB |
+| `"stac"`, `"docs"` | STAC catalog, `DATASHEET.md` and checksums | \< 1 MB |
 | `"cube"` | `cube.zarr.zip`, the same composites as a Zarr store, for Python | 2.5 GB |
 
 ## Functions
@@ -157,6 +162,9 @@ sets these values to `NA` by default.
 | [`fpc_composites()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_composites.md) | 5-day time series, wide or long, observed values only by default |
 | [`fpc_observations()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_observations.md) | per-acquisition optical (HLS) or radar (Sentinel-1) records |
 | [`fpc_labels()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_labels.md) | US Drought Monitor, NASS pasture condition, hurricane tracks and landfalls |
+| [`fpc_lineage()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_lineage.md) | field identifiers across versions, with the version 1.0 parent of every field |
+| [`fpc_validation()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_validation.md) | the validation tables, including the official land use and WorldCover cover of every field |
+| [`fpc_benchmark()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_benchmark.md) | samples, results and predictions of the three benchmark tasks |
 | [`fpc_add_drought()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_add_drought.md) | adds the county drought class valid on each date |
 | [`fpc_climatology()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_climatology.md), [`fpc_anomaly()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_climatology.md) | each field’s own seasonal climatology and the anomaly from it |
 | [`fpc_summarise()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_summarise.md) | median (or another statistic) over fields for each date |
@@ -218,7 +226,7 @@ Every reader also takes `dir =` to point to another folder.
 
 old <- fpc_set_dir(d)   # use the example folder for this session
 fpc_dir()
-#> [1] "/Users/rodrigues.h/Library/R/arm64/4.6/library/fpcubeR/extdata/fpcube_example"
+#> [1] "/private/var/folders/t1/hkych_452gzbjxq5f6ljzs_m0000gn/T/Rtmp24w7op/temp_libpath39343e2e9a18/fpcubeR/extdata/fpcube_example"
 fpc_set_dir(old)        # back to the previous setting
 ```
 
@@ -476,6 +484,116 @@ lf[lf$name %in% c("IRMA", "IAN", "MILTON"), c("name", "time", "status", "lat", "
 #> 86     IAN 2022-09-28 20:35:00     HU 26.8 -82.0     125 HURDAT2
 #> 87     IAN 2022-09-30 18:05:00     HU 33.3 -79.2      70 HURDAT2
 #> 104 MILTON 2024-10-10 00:30:00     HU 27.4 -82.6     100 HURDAT2
+```
+
+### Lineage, validation and benchmark
+
+#### `fpc_lineage()`
+
+Fields were split into connected parts in version 1.1, and tier C was
+added in version 1.3.
+[`fpc_lineage()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_lineage.md)
+links every field to the version 1.0 field it comes from, with its
+`status`:
+
+- `"unchanged"`: same pixels and same identifier as in version 1.0;
+- `"reshaped"`: the largest part of a version 1.0 field, which keeps its
+  identifier;
+- `"new"`: a further part of a version 1.0 field, or a tier C field,
+  which has no parent;
+- `"removed"`: an identifier of version 1.0 that is no longer used.
+
+Use `parents =` to find where fields of version 1.0 went.
+
+``` r
+
+table(fpc_lineage(dir = d)$status)
+#> 
+#>       new   removed  reshaped unchanged 
+#>         4         1         4         3
+fpc_lineage(parents = "FPC057124", dir = d)
+#>    field_id   fid   status parent_field_id parent_fid n_pixels obs_version
+#> 1 FPC057124 57124 reshaped       FPC057124      57124      395        v1.1
+#> 2 FPC083554 83554      new       FPC057124      57124      223        v1.1
+```
+
+#### `fpc_validation()`
+
+[`fpc_validation()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_validation.md)
+reads the tables behind the validation of the paper. Without arguments
+it lists them. Two of them have one row per field: the 30 m pixels of
+each field in each land-use group of the official FLUCCS maps, and the
+share of each field in each ESA WorldCover 2021 class.
+
+``` r
+
+fpc_validation(dir = d)[, c("table", "description")]
+#>                    table
+#> 1        fluccs_by_field
+#> 2    worldcover_by_field
+#> 3       coverage_by_year
+#> 4     quality_by_stratum
+#> 5 delineation_accounting
+#> 6                summary
+#>                                                                                  description
+#> 1 30 m pixels of each field in each FLUCCS land-use group, and the water management district
+#> 2                                      share of each field in each ESA WorldCover 2021 class
+#> 3                  median over fields of the usable optical days and the radar days, by year
+#> 4             observed, interpolated and empty shares and usable days by tier and field size
+#> 5                                                 area at each step of the field delineation
+#> 6                                            every number of the validation section (a list)
+w <- fpc_validation("worldcover_by_field", dir = d)
+w[, c("field_id", "grassland", "tree", "herbaceous_wetland")]
+#>    field_id grassland        tree herbaceous_wetland
+#> 1 FPC059432 0.8293371 0.170662938        0.000000000
+#> 2 FPC060780 0.8273428 0.074872327        0.000000000
+#> 3 FPC061123 0.7844978 0.215502236        0.000000000
+#> 4 FPC061831 0.8237267 0.176273288        0.000000000
+#> 5 FPC062581 0.7203107 0.278993340        0.000000000
+#> 6 FPC062877 0.9260253 0.071149163        0.002825567
+#> 7 FPC094408 0.9471616 0.001148086        0.000000000
+#> 8 FPC094588 0.9887424 0.011257614        0.000000000
+#> 9 FPC095347 0.9971499 0.002850092        0.000000000
+fpc_validation("quality_by_stratum", dir = d)[1:4, c("tier", "size", "n_fields", "interpolated", "empty")]
+#>   tier      size n_fields interpolated      empty
+#> 1    A    2-5 ha    18379    0.4246098 0.12978342
+#> 2    A   5-20 ha    15853    0.4266429 0.11788761
+#> 3    A 20-100 ha     6228    0.4263779 0.10775832
+#> 4    A  >=100 ha     1516    0.4235679 0.09886453
+```
+
+#### `fpc_benchmark()`
+
+[`fpc_benchmark()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_benchmark.md)
+reads the samples, results, predictions and run information of the three
+benchmark tasks:
+
+1.  forecast of field NDVI 15 to 60 days ahead;
+2.  detection of the fields that responded to an extreme event;
+3.  forecast of the change of the county drought class.
+
+Without arguments it lists the tables. The task 1 samples get the field
+identifier, the issue date and the target period, so a model can be
+trained and scored on the same samples and splits as in the paper.
+
+``` r
+
+r <- fpc_benchmark("task1_results", dir = d)
+r[r$split == "test" & r$horizon_days == 30, c("model", "n", "rmse", "skill_vs_ref")]
+#>         model      n       rmse skill_vs_ref
+#> 5 persistence 466976 0.10233533  -0.06090951
+#> 6 climatology 466976 0.09935425   0.00000000
+#> 7    lightgbm 466976 0.07424492   0.44158048
+#> 8 transformer 466976 0.07352084   0.45241940
+s <- fpc_benchmark("task1_samples", dir = d)
+head(s[, c("field_id", "issue_date", "horizon_days", "target_start", "target_end", "split")])
+#>    field_id issue_date horizon_days target_start target_end split
+#> 1 FPC059432 2016-03-01           45   2016-04-10 2016-04-14 train
+#> 2 FPC060780 2016-03-01           45   2016-04-10 2016-04-14 train
+#> 3 FPC061123 2016-03-01           45   2016-04-10 2016-04-14 train
+#> 4 FPC062581 2016-03-01           45   2016-04-10 2016-04-14 train
+#> 5 FPC062877 2016-03-01           45   2016-04-10 2016-04-14 train
+#> 6 FPC094408 2016-03-01           45   2016-04-10 2016-04-14 train
 ```
 
 ### Analysis helpers

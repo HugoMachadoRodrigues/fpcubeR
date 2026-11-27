@@ -19,7 +19,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fpcubeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +65,8 @@ Cube:</p>
 <li>choose fields;</li>
 <li>read their 5-day series;</li>
 <li>look at a field;</li>
-<li>relate its greenness to drought.</li>
+<li>relate its greenness to drought;</li>
+<li>find the validation and benchmark tables.</li>
 </ol>
 <p>It uses the small real extract shipped with the package, which holds
 nine fields from Hardee, DeSoto and Highlands counties. With the full
@@ -219,9 +220,40 @@ each date.</p>
 <p><img src="fpcubeR_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level2">
+<h2 id="validation-and-benchmark-tables">5. Validation and benchmark tables<a class="anchor" aria-label="anchor" href="#validation-and-benchmark-tables"></a>
+</h2>
+<p>The release also holds the tables behind the validation and the
+benchmark of the paper, and the link of every field to version 1.0. For
+example, the ESA WorldCover cover of the fields and the scores of task
+1:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fpc_validation.html">fpc_validation</a></span><span class="op">(</span><span class="st">"worldcover_by_field"</span>, fields <span class="op">=</span> <span class="va">f</span>, dir <span class="op">=</span> <span class="va">d</span><span class="op">)</span></span>
+<span><span class="va">w</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"field_id"</span>, <span class="st">"grassland"</span>, <span class="st">"tree"</span>, <span class="st">"herbaceous_wetland"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt;    field_id grassland        tree herbaceous_wetland</span></span>
+<span><span class="co">#&gt; 1 FPC059432 0.8293371 0.170662938        0.000000000</span></span>
+<span><span class="co">#&gt; 2 FPC060780 0.8273428 0.074872327        0.000000000</span></span>
+<span><span class="co">#&gt; 3 FPC061123 0.7844978 0.215502236        0.000000000</span></span>
+<span><span class="co">#&gt; 4 FPC061831 0.8237267 0.176273288        0.000000000</span></span>
+<span><span class="co">#&gt; 5 FPC062581 0.7203107 0.278993340        0.000000000</span></span>
+<span><span class="co">#&gt; 6 FPC062877 0.9260253 0.071149163        0.002825567</span></span>
+<span><span class="co">#&gt; 7 FPC094408 0.9471616 0.001148086        0.000000000</span></span>
+<span><span class="co">#&gt; 8 FPC094588 0.9887424 0.011257614        0.000000000</span></span>
+<span><span class="co">#&gt; 9 FPC095347 0.9971499 0.002850092        0.000000000</span></span>
+<span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fpc_benchmark.html">fpc_benchmark</a></span><span class="op">(</span><span class="st">"task1_results"</span>, dir <span class="op">=</span> <span class="va">d</span><span class="op">)</span></span>
+<span><span class="va">r</span><span class="op">[</span><span class="va">r</span><span class="op">$</span><span class="va">split</span> <span class="op">==</span> <span class="st">"test"</span> <span class="op">&amp;</span> <span class="va">r</span><span class="op">$</span><span class="va">horizon_days</span> <span class="op">==</span> <span class="fl">30</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"model"</span>, <span class="st">"rmse"</span>, <span class="st">"skill_vs_ref"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt;         model       rmse skill_vs_ref</span></span>
+<span><span class="co">#&gt; 5 persistence 0.10233533  -0.06090951</span></span>
+<span><span class="co">#&gt; 6 climatology 0.09935425   0.00000000</span></span>
+<span><span class="co">#&gt; 7    lightgbm 0.07424492   0.44158048</span></span>
+<span><span class="co">#&gt; 8 transformer 0.07352084   0.45241940</span></span></code></pre></div>
+<p><code><a href="../reference/fpc_lineage.html">fpc_lineage()</a></code>, <code><a href="../reference/fpc_validation.html">fpc_validation()</a></code> and
+<code><a href="../reference/fpc_benchmark.html">fpc_benchmark()</a></code> without a table name list what is
+available.</p>
+</div>
+<div class="section level2">
 <h2 id="working-with-the-full-data-set">Working with the full data set<a class="anchor" aria-label="anchor" href="#working-with-the-full-data-set"></a>
 </h2>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fpc_download.html">fpc_download</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fields"</span>, <span class="st">"composites"</span>, <span class="st">"labels"</span><span class="op">)</span><span class="op">)</span>   <span class="co"># about 2.4 GB</span></span>
 <span><span class="fu"><a href="../reference/fpc_download.html">fpc_download</a></span><span class="op">(</span><span class="st">"optical"</span><span class="op">)</span>                              <span class="co"># per-acquisition HLS records, 4 GB</span></span>
 <span><span class="va">fa</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fpc_fields.html">fpc_fields</a></span><span class="op">(</span>tier <span class="op">=</span> <span class="st">"A"</span><span class="op">)</span></span>

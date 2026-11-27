@@ -6,7 +6,8 @@ Cube:
 1.  choose fields;
 2.  read their 5-day series;
 3.  look at a field;
-4.  relate its greenness to drought.
+4.  relate its greenness to drought;
+5.  find the validation and benchmark tables.
 
 It uses the small real extract shipped with the package, which holds
 nine fields from Hardee, DeSoto and Highlands counties. With the full
@@ -185,6 +186,42 @@ ggplot(a[!is.na(a$anomaly), ], aes(drought, anomaly)) +
 ```
 
 ![](fpcubeR_files/figure-html/unnamed-chunk-10-1.png)
+
+## 5. Validation and benchmark tables
+
+The release also holds the tables behind the validation and the
+benchmark of the paper, and the link of every field to version 1.0. For
+example, the ESA WorldCover cover of the fields and the scores of task
+1:
+
+``` r
+
+w <- fpc_validation("worldcover_by_field", fields = f, dir = d)
+w[, c("field_id", "grassland", "tree", "herbaceous_wetland")]
+#>    field_id grassland        tree herbaceous_wetland
+#> 1 FPC059432 0.8293371 0.170662938        0.000000000
+#> 2 FPC060780 0.8273428 0.074872327        0.000000000
+#> 3 FPC061123 0.7844978 0.215502236        0.000000000
+#> 4 FPC061831 0.8237267 0.176273288        0.000000000
+#> 5 FPC062581 0.7203107 0.278993340        0.000000000
+#> 6 FPC062877 0.9260253 0.071149163        0.002825567
+#> 7 FPC094408 0.9471616 0.001148086        0.000000000
+#> 8 FPC094588 0.9887424 0.011257614        0.000000000
+#> 9 FPC095347 0.9971499 0.002850092        0.000000000
+r <- fpc_benchmark("task1_results", dir = d)
+r[r$split == "test" & r$horizon_days == 30, c("model", "rmse", "skill_vs_ref")]
+#>         model       rmse skill_vs_ref
+#> 5 persistence 0.10233533  -0.06090951
+#> 6 climatology 0.09935425   0.00000000
+#> 7    lightgbm 0.07424492   0.44158048
+#> 8 transformer 0.07352084   0.45241940
+```
+
+[`fpc_lineage()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_lineage.md),
+[`fpc_validation()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_validation.md)
+and
+[`fpc_benchmark()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_benchmark.md)
+without a table name list what is available.
 
 ## Working with the full data set
 

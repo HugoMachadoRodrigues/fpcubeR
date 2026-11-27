@@ -63,7 +63,9 @@ The data folder, invisibly.
 | `"lineage"` | `lineage.parquet`: field identifiers across versions | 1 MB |
 | `"optical"` | `optical_observations/`: one row per field and HLS granule | 4 GB |
 | `"radar"` | `radar_observations/`: one row per field and Sentinel-1 acquisition | 1 GB |
-| `"validation"`, `"benchmark"`, `"stac"` | validation tables, benchmark samples and results, STAC catalog | small |
+| `"validation"` | `validation/`: the tables behind the validation of the paper (see [`fpc_validation()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_validation.md)) | 8 MB |
+| `"benchmark"` | `benchmark/`: samples, results and predictions of the benchmark (see [`fpc_benchmark()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_benchmark.md)) | 27 MB |
+| `"stac"` | `stac/`: SpatioTemporal Asset Catalog of the release | \< 1 MB |
 | `"cube"` | `cube.zarr.zip`: the same composites as a Zarr store (for Python) | 2.5 GB |
 | `"docs"` | `DATASHEET.md` and checksums | small |
 

@@ -21,7 +21,8 @@ files.
 
 ## Read
 
-Fields, 5-day composites, per-acquisition observations and labels.
+Fields, 5-day composites, per-acquisition observations, labels and field
+identifiers across versions.
 
 - [`fpc_fields()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_fields.md)
   : Read the pasture fields
@@ -33,6 +34,17 @@ Fields, 5-day composites, per-acquisition observations and labels.
   : Read the per-acquisition observation tables
 - [`fpc_labels()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_labels.md)
   : Read the labels
+- [`fpc_lineage()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_lineage.md)
+  : Field identifiers across versions
+
+## Validation and benchmark
+
+The tables behind the validation and the benchmark of the paper.
+
+- [`fpc_validation()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_validation.md)
+  : Read the validation tables
+- [`fpc_benchmark()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_benchmark.md)
+  : Read the benchmark samples and results
 
 ## Analyse
 

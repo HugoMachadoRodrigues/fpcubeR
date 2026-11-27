@@ -1,5 +1,19 @@
 # Changelog
 
+## fpcubeR (development version)
+
+- New readers for the remaining parts of the release:
+  - [`fpc_lineage()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_lineage.md):
+    field identifiers across versions, with the version 1.0 parent and
+    the status of every field.
+  - [`fpc_validation()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_validation.md):
+    the tables behind the validation of the paper, including the
+    official land use and the ESA WorldCover cover of every field.
+  - [`fpc_benchmark()`](https://hugomachadorodrigues.github.io/fpcubeR/reference/fpc_benchmark.md):
+    samples, results, predictions and run information of the three
+    benchmark tasks; the task 1 samples get field identifiers and dates.
+- The example data now include these tables for the nine example fields.
+
 ## fpcubeR 1.3.0
 
 - First release, for version 1.3 of the Florida Pasture Cube.
